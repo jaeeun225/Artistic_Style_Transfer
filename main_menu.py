@@ -8,7 +8,7 @@ class MainPage(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("My mini art gallery")
-        self.setFixedSize(500, 650)
+        self.setFixedSize(500, 700)
 
         widget = QWidget()
         layout = QVBoxLayout()
