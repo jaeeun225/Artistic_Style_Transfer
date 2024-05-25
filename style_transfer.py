@@ -1,11 +1,12 @@
-import tkinter as tk
-from tkinter import filedialog
-from PIL import Image, ImageTk
+from PyQt5.QtWidgets import QApplication, QPushButton, QGridLayout, QWidget, QFileDialog, QLabel
+from PyQt5.QtGui import QFont, QPixmap, QImage
+from PIL import Image
 import tensorflow_hub as hub
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import threading
+import os
 
 def load_img(path_to_img):
     img = plt.imread(path_to_img)
@@ -29,25 +30,6 @@ def stylize_image(content_path, style_path):
 
     return stylized_image
 
-def select_image(image_label):
-    filename = filedialog.askopenfilename() # show an "Open" dialog box and return the path to the selected file
-    if filename: # Check if the filename is not an empty string
-        image = Image.open(filename)
-        width, height = image.size
-        content_ratio = height / width
-        max_display_size = 350
-        if width > height:
-            new_width = max_display_size
-            new_height = int(new_width * content_ratio)
-        else:
-            new_height = max_display_size
-            new_width = int(new_height / content_ratio)
-        display_image = image.resize((new_width, new_height)) # Resize the image for display only
-        photo = ImageTk.PhotoImage(display_image)
-        image_label.config(image=photo)
-        image_label.image = photo
-    return filename
-
 def stylize(content_path, style_path):
     stylized_image = stylize_image(content_path, style_path)
     # Convert the stylized image to a PIL image
@@ -65,39 +47,83 @@ def stylize(content_path, style_path):
         new_height = max_display_size
         new_width = int(new_height / content_ratio)
 
-    # Resize the image for display only
+    # Convert the output image to a display image
     display_image = stylized_image.resize((new_width, new_height))
-    photo = ImageTk.PhotoImage(display_image)
-    output_label.config(image=photo)
-    output_label.image = photo
+    data = display_image.convert("RGBA").tobytes("raw", "BGRA")
+    qimage = QImage(data, display_image.size[0], display_image.size[1], QImage.Format_ARGB32)
+    pixmap = QPixmap.fromImage(qimage)
+
+    # Update the output label with the stylized image
+    output_label.setPixmap(pixmap)
 
 def stylize_button_click():
-    threading.Thread(target=stylize, args=(content_path.get(), style_path.get())).start()
+    threading.Thread(target=stylize, args=(content_path, style_path)).start()
 
-root = tk.Tk()
+def select_image(image_label):
+    filename, _ = QFileDialog.getOpenFileName() 
+    if filename: 
+        image = Image.open(filename)
+        width, height = image.size
+        content_ratio = height / width
+        max_display_size = 350
+        if width > height:
+            new_width = max_display_size
+            new_height = int(new_width * content_ratio)
+        else:
+            new_height = max_display_size
+            new_width = int(new_height / content_ratio)
+        display_image = image.resize((new_width, new_height)) 
+        data = display_image.convert("RGBA").tobytes("raw", "BGRA")
+        qimage = QImage(data, display_image.size[0], display_image.size[1], QImage.Format_ARGB32)
+        pixmap = QPixmap.fromImage(qimage)
+        image_label.setPixmap(pixmap)
+    return filename
 
-content_path = tk.StringVar()
-style_path = tk.StringVar()
+def update_content_path():
+    global content_path
+    content_path = select_image(content_label)
 
-# Change the font and background color of the buttons
-button_font = ("Helvetica", 10)
-button_bg = "#e0e0e0"
-button_active_bg = "#c0c0c0"
+def update_style_path():
+    global style_path
+    style_path = select_image(style_label)
 
-content_button = tk.Button(root, text="Select Content Image", command=lambda: content_path.set(select_image(content_label)), font=button_font, bg=button_bg, activebackground=button_active_bg)
-style_button = tk.Button(root, text="Select Style Image", command=lambda: style_path.set(select_image(style_label)), font=button_font, bg=button_bg, activebackground=button_active_bg)
-stylize_button = tk.Button(root, text="Stylize", command=stylize_button_click, font=button_font, bg=button_bg, activebackground=button_active_bg)
+app = QApplication([])
 
-content_label = tk.Label(root)
-content_label.grid(row=0, column=0)
-content_button.grid(row=1, column=0)
+window = QWidget()
+layout = QGridLayout()
 
-style_label = tk.Label(root)
-style_label.grid(row=0, column=2)
-style_button.grid(row=1, column=2)
+button_font = QFont("Helvetica", 10)
 
-output_label = tk.Label(root)
-output_label.grid(row=0, column=1)
-stylize_button.grid(row=1, column=1)
+content_path = ""
+style_path = ""
 
-root.mainloop()
+content_label = QLabel()
+content_button = QPushButton('Select Content Image')
+content_button.setFont(button_font)
+content_button.setStyleSheet("background-color: skyblue")
+content_button.clicked.connect(update_content_path)
+
+style_label = QLabel()
+style_button = QPushButton('Select Style Image')
+style_button.setFont(button_font)
+style_button.setStyleSheet("background-color: skyblue")
+style_button.clicked.connect(update_style_path)
+
+output_label = QLabel()
+stylize_button = QPushButton('Stylize')
+stylize_button.setFont(button_font)
+stylize_button.setStyleSheet("background-color: skyblue")
+stylize_button.clicked.connect(lambda: threading.Thread(target=stylize, args=(content_path, style_path)).start())
+
+layout.addWidget(content_label, 0, 0) # Content image label
+layout.addWidget(output_label, 0, 1) # Output image label
+layout.addWidget(style_label, 0, 2) # Style image label
+
+layout.addWidget(content_button, 1, 0) # Content image button
+layout.addWidget(stylize_button, 1, 1) # Stylize button
+layout.addWidget(style_button, 1, 2) # Style image button
+
+window.setLayout(layout)
+window.show()
+
+app.exec_()
