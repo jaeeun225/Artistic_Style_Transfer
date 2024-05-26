@@ -34,12 +34,11 @@ class ImageProcessor:
         image = self.load_img(filename)
         original_width, original_height = image.size
         content_ratio = original_height / original_width
-        max_display_size = 200
         if original_width > original_height:
-            new_width = max_display_size
+            new_width = 300
             new_height = int(new_width * content_ratio)
         else:
-            new_height = max_display_size
+            new_height = 200
             new_width = int(new_height / content_ratio)
         image = image.resize((new_width, new_height))
         data = image.convert("RGBA").tobytes("raw", "BGRA")
@@ -131,19 +130,19 @@ class MyArtistPage(QMainWindow):
         self.image_processor = ImageProcessor(self.content_label, self.style_label, self.output_label)
 
         content_button = QPushButton('바꿀 이미지 선택하기')
-        content_button.setFixedSize(320, 40)
+        content_button.setFixedSize(400, 40)
         content_button.clicked.connect(self.image_processor.update_content_path)
 
         style_button = QPushButton('원하는 스타일 선택하기')
-        style_button.setFixedSize(320, 40)
+        style_button.setFixedSize(400, 40)
         style_button.clicked.connect(self.image_processor.update_style_path)
 
         stylize_button = QPushButton('작품 만들기')
-        stylize_button.setFixedSize(320, 40)
+        stylize_button.setFixedSize(400, 40)
         stylize_button.clicked.connect(self.image_processor.stylize_button_click)
 
         back_button = QPushButton('뒤로 가기')
-        back_button.setFixedSize(320, 40)  # Set the size of the button
+        back_button.setFixedSize(400, 40)  # Set the size of the button
         back_button.clicked.connect(self.go_back)  # Connect the button click event to the handler
 
         layout.addLayout(self.centered_layout(self.content_label))
