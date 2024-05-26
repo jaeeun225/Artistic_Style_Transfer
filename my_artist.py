@@ -128,7 +128,7 @@ class MyArtistPage(QMainWindow):
 
         self.previous_page = previous_page
 
-        self.setWindowTitle("My Artist Page")
+        self.setWindowTitle("화가의 작업 공간")
         self.setFixedSize(500, 700)
 
         widget = QWidget()
@@ -142,12 +142,12 @@ class MyArtistPage(QMainWindow):
 
         font = QFont("NanumMyeongjo", 10)
 
-        content_button = QPushButton('바꿀 이미지 선택하기')
+        content_button = QPushButton('화가가 그릴 이미지 가져오기')
         content_button.setFixedSize(400, 40)
         content_button.setFont(font)
         content_button.clicked.connect(self.image_processor.update_content_path)
 
-        style_button = QPushButton('원하는 스타일 선택하기')
+        style_button = QPushButton('화가의 이전 작품 가져오기')
         style_button.setFixedSize(400, 40)
         style_button.setFont(font)
         style_button.clicked.connect(self.image_processor.update_style_path)

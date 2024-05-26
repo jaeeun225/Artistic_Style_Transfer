@@ -8,25 +8,25 @@ class ArtistSelect(QMainWindow):
 
         self.main_page = main_page
 
-        self.setWindowTitle("Artist Select")
+        self.setWindowTitle("화가들의 모임")
         self.setFixedSize(500, 700)
 
         widget = QWidget()
         layout = QVBoxLayout()
 
-        title = QLabel("화가를 선택하세요")
-        title_font = QFont("NanumMyeongjo", 14)
+        title = QLabel("작품을 만들 화가를 선택해주세요")
+        title_font = QFont("NanumMyeongjo", 13)
         title.setFont(title_font)
         title.setAlignment(Qt.AlignCenter)
 
         font = QFont("NanumMyeongjo", 10)
 
-        gallery_button = QPushButton('갤러리 화가 선택하기')
-        gallery_button.setFixedSize(400, 200)
+        gallery_button = QPushButton('갤러리 화가에게 의뢰하기')
+        gallery_button.setFixedSize(400, 180)
         gallery_button.setFont(font)
 
-        my_artist_button = QPushButton('나의 화가 선택하기')
-        my_artist_button.setFixedSize(400, 200)
+        my_artist_button = QPushButton('나의 화가에게 의뢰하기')
+        my_artist_button.setFixedSize(400, 180)
         my_artist_button.setFont(font)
         my_artist_button.clicked.connect(self.open_my_artist_page)
 

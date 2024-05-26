@@ -10,7 +10,7 @@ class MyArtistResult(QMainWindow):
     def __init__(self, image_path):
         super().__init__()
 
-        self.setWindowTitle("Result Page")
+        self.setWindowTitle("완성된 작품")
         self.setFixedSize(500, 700)
 
         widget = QWidget()
@@ -25,7 +25,7 @@ class MyArtistResult(QMainWindow):
 
         # Get the original image's size
         original_image = Image.open(image_path)
-        
+
         # Convert the PIL Image to a numpy array
         numpy_image = np.array(original_image)
 
@@ -71,7 +71,7 @@ class MyArtistResult(QMainWindow):
 
         font = QFont("NanumMyeongjo", 10)
 
-        self.name_button = QPushButton("작품명을 입력하세요")
+        self.name_button = QPushButton("작품명을 붙여주세요")
         self.name_button.setFixedSize(400, 50)
         self.name_button.setFont(font)
         self.name_button.clicked.connect(self.enter_image_name)
@@ -155,5 +155,5 @@ class MyArtistResult(QMainWindow):
         if result == QDialog.Accepted:
             artist_name = self.artist_edit.text()
             artwork_name = self.artwork_edit.text()
-            self.name_button.setText("작품명 다시 입력하기")
+            self.name_button.setText("작품명 다시 붙이기")
             self.artwork_name_label.setText(f"{artist_name}의 {artwork_name}")

@@ -7,7 +7,7 @@ class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My mini art gallery")
+        self.setWindowTitle("나의 작은 아트 갤러리")
         self.setFixedSize(500, 700)
 
         widget = QWidget()
