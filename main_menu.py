@@ -13,20 +13,26 @@ class MainPage(QMainWindow):
         widget = QWidget()
         layout = QVBoxLayout()
 
-        title = QLabel("My mini art gallery")
-        title_font = QFont("Helvetica", 20)
+        title = QLabel("나의 작은 아트 갤러리")
+        title_font = QFont("NanumMyeongjo", 20, QFont.Bold)
         title.setFont(title_font)
         title.setAlignment(Qt.AlignCenter)  # Center align the title
 
+
+        font = QFont("NanumMyeongjo", 10)
+
         create_button = QPushButton('작품 만들기')
-        create_button.setFixedSize(400, 80)  # Set the size of the button
+        create_button.setFixedSize(400, 80)
+        create_button.setFont(font)
         create_button.clicked.connect(self.open_next_page)
 
         gallery_button = QPushButton('갤러리')
-        gallery_button.setFixedSize(400, 80)  # Set the size of the button
+        gallery_button.setFixedSize(400, 80)
+        gallery_button.setFont(font)
 
         exit_button = QPushButton('나가기')
-        exit_button.setFixedSize(400, 80)  # Set the size of the button
+        exit_button.setFixedSize(400, 80)
+        exit_button.setFont(font)
         exit_button.clicked.connect(app.quit)
 
         button_layout = QGridLayout()

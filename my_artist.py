@@ -83,7 +83,7 @@ class ImageProcessor:
         stylized_image.save(output_image_path)
 
         # Get the original image's size
-        original_image = Image.open(self.content_path)  # Changed from content_path to self.content_path
+        original_image = Image.open(self.content_path)
         original_width, original_height = original_image.size
         content_ratio = original_height / original_width
         max_display_size = 200
@@ -107,7 +107,7 @@ class ImageProcessor:
 
     def stylize_button_click(self):
         output_image_path = self.stylize()
-        # 결과 페이지 생성 및 표시
+
         self.result_page = MyArtistResult(output_image_path)
         self.result_page.show()
 
@@ -129,32 +129,38 @@ class MyArtistPage(QMainWindow):
 
         self.image_processor = ImageProcessor(self.content_label, self.style_label, self.output_label)
 
+        font = QFont("NanumMyeongjo", 10)
+
         content_button = QPushButton('바꿀 이미지 선택하기')
         content_button.setFixedSize(400, 40)
+        content_button.setFont(font)
         content_button.clicked.connect(self.image_processor.update_content_path)
 
         style_button = QPushButton('원하는 스타일 선택하기')
         style_button.setFixedSize(400, 40)
+        style_button.setFont(font)
         style_button.clicked.connect(self.image_processor.update_style_path)
 
         stylize_button = QPushButton('작품 만들기')
         stylize_button.setFixedSize(400, 40)
+        stylize_button.setFont(font)
         stylize_button.clicked.connect(self.image_processor.stylize_button_click)
 
         back_button = QPushButton('뒤로 가기')
-        back_button.setFixedSize(400, 40)  # Set the size of the button
-        back_button.clicked.connect(self.go_back)  # Connect the button click event to the handler
+        back_button.setFixedSize(400, 40)
+        back_button.setFont(font)
+        back_button.clicked.connect(self.go_back)
 
         layout.addLayout(self.centered_layout(self.content_label))
-        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))  # Add spacer
+        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
         layout.addLayout(self.centered_layout(content_button))
-        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))  # Add spacer
+        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
         layout.addLayout(self.centered_layout(self.style_label))
-        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))  # Add spacer
+        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
         layout.addLayout(self.centered_layout(style_button))
-        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))  # Add spacer
+        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
         layout.addLayout(self.centered_layout(stylize_button))
-        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))  # Add spacer
+        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
         layout.addLayout(self.centered_layout(back_button))
 
         widget.setLayout(layout)

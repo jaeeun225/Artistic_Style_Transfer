@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import Qt
 from PIL import Image
 
@@ -35,7 +35,7 @@ class MyArtistResult(QMainWindow):
         # Scale the image to the desired size for display
         scaled_pixmap = pixmap.scaled(new_width, new_height, Qt.KeepAspectRatio)
 
-        # Now you can use scaled_pixmap to set the pixmap of a QLabel or any other widget
+        # Use scaled_pixmap to set the pixmap of a QLabel or any other widget
         self.result_label.setPixmap(scaled_pixmap)
 
         # Align the image to the center
@@ -45,13 +45,16 @@ class MyArtistResult(QMainWindow):
 
         # Add the artwork name label
         self.artwork_name_label = QLabel()
+        self.artwork_name_label.setFont(QFont("NanumMyeongjo", 12))
         self.artwork_name_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(self.artwork_name_label)
 
-        # Add the artwork name button
+        font = QFont("NanumMyeongjo", 10)
+
         self.name_button = QPushButton("작품명을 입력하세요")
-        self.name_button.clicked.connect(self.enter_image_name)
         self.name_button.setFixedSize(400, 50)
+        self.name_button.setFont(font)
+        self.name_button.clicked.connect(self.enter_image_name)
 
         # Center align the artwork name button
         layout.addWidget(self.name_button, alignment=Qt.AlignCenter)
@@ -65,10 +68,16 @@ class MyArtistResult(QMainWindow):
         # Add the buttons
         self.home_button = QPushButton("메인 메뉴")
         self.home_button.setFixedSize(120, 50)  # Set the button size
+        self.home_button.setFont(font)
+
         self.back_button = QPushButton("뒤로 가기")
         self.back_button.setFixedSize(120, 50)  # Set the button size
+        self.back_button.setFont(font)
+
         self.save_button = QPushButton("저장하기")
         self.save_button.setFixedSize(120, 50)  # Set the button size
+        self.save_button.setFont(font)
+
         grid_layout.addWidget(self.home_button, 0, 0)
         grid_layout.addWidget(self.back_button, 0, 1)
         grid_layout.addWidget(self.save_button, 0, 2)
@@ -93,14 +102,22 @@ class MyArtistResult(QMainWindow):
         dialog = QDialog(self)
         dialog.setWindowTitle("작품명 입력")
 
+        font = QFont("NanumMyeongjo", 10)
+
         # Create two line edits for the artist's name and the artwork's name
         self.artist_edit = QLineEdit()
+        self.artist_edit.setFont(font)
         self.artwork_edit = QLineEdit()
+        self.artwork_edit.setFont(font)
 
-        # Create a form layout and add the line edits
+        artist_label = QLabel("작가:")
+        artist_label.setFont(font)
+        artwork_label = QLabel("작품명:")
+        artwork_label.setFont(font)
+
         form_layout = QFormLayout()
-        form_layout.addRow("작가:", self.artist_edit)
-        form_layout.addRow("작품명:", self.artwork_edit)
+        form_layout.addRow( artist_label, self.artist_edit)
+        form_layout.addRow(artwork_label, self.artwork_edit)
 
         # Create a button box with OK and Cancel buttons
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
