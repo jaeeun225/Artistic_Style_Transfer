@@ -19,14 +19,14 @@ class MainPage(QMainWindow):
         title.setAlignment(Qt.AlignCenter)  # Center align the title
 
         create_button = QPushButton('작품 만들기')
-        create_button.setFixedSize(320, 80)  # Set the size of the button
+        create_button.setFixedSize(400, 80)  # Set the size of the button
         create_button.clicked.connect(self.open_next_page)
 
         gallery_button = QPushButton('갤러리')
-        gallery_button.setFixedSize(320, 80)  # Set the size of the button
+        gallery_button.setFixedSize(400, 80)  # Set the size of the button
 
         exit_button = QPushButton('나가기')
-        exit_button.setFixedSize(320, 80)  # Set the size of the button
+        exit_button.setFixedSize(400, 80)  # Set the size of the button
         exit_button.clicked.connect(app.quit)
 
         button_layout = QGridLayout()
