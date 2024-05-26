@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout
+from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout, QHBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QPixmap, QFont, QImage
 from PyQt5.QtCore import Qt
 from PIL import Image
@@ -72,50 +72,30 @@ class MyArtistResult(QMainWindow):
         font = QFont("NanumMyeongjo", 10)
 
         self.name_button = QPushButton("작품명을 붙여주세요")
-        self.name_button.setFixedSize(400, 50)
+        self.name_button.setFixedSize(400, 40)
         self.name_button.setFont(font)
         self.name_button.clicked.connect(self.enter_image_name)
 
-        # Center align the artwork name button
-        layout.addWidget(self.name_button, alignment=Qt.AlignCenter)
-
-        # Create a grid layout for the buttons
-        grid_layout = QGridLayout()
-
-        # Set the vertical spacing
-        grid_layout.setVerticalSpacing(10)
-
-        # Add the buttons
-        self.home_button = QPushButton("메인 메뉴")
-        self.home_button.setFixedSize(120, 50)  # Set the button size
-        self.home_button.setFont(font)
-
-        self.back_button = QPushButton("뒤로 가기")
-        self.back_button.setFixedSize(120, 50)  # Set the button size
-        self.back_button.setFont(font)
-
-        self.save_button = QPushButton("저장하기")
-        self.save_button.setFixedSize(120, 50)  # Set the button size
+        self.save_button = QPushButton('작품 소장하기')
+        self.save_button.setFixedSize(400, 40)
         self.save_button.setFont(font)
 
-        grid_layout.addWidget(self.home_button, 0, 0)
-        grid_layout.addWidget(self.back_button, 0, 1)
-        grid_layout.addWidget(self.save_button, 0, 2)
+        layout.addLayout(self.centered_layout(self.name_button))
+        layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
+        layout.addLayout(self.centered_layout(self.save_button))
 
-        # Center align the buttons
-        grid_layout.setAlignment(self.home_button, Qt.AlignCenter)
-        grid_layout.setAlignment(self.back_button, Qt.AlignCenter)
-        grid_layout.setAlignment(self.save_button, Qt.AlignCenter)
-
-        # Add the grid layout to the main layout
-        layout.addLayout(grid_layout)
-
-        # Add a stretch at the end of the layout
-        layout.addStretch(40)
+        layout.addStretch(30)
 
         widget.setLayout(layout)
         widget.setContentsMargins(30, 30, 30, 30)  # Set the border
         self.setCentralWidget(widget)
+
+    def centered_layout(self, widget):
+        hbox = QHBoxLayout()
+        hbox.addStretch()
+        hbox.addWidget(widget)
+        hbox.addStretch()
+        return hbox
 
     def enter_image_name(self):
         # Create a custom dialog
