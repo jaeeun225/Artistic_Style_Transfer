@@ -8,7 +8,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import threading
 import os
+import cv2
 from my_artist_result import MyArtistResult
+from frame_application import add_complex_frame_to_image
+
 
 class ImageProcessor:
     def __init__(self, content_label, style_label, output_label):
@@ -48,6 +51,12 @@ class ImageProcessor:
 
     def load_img(self, path_to_img):
         img = Image.open(path_to_img)
+        # Convert the PIL Image to an OpenCV image (numpy array)
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        # Apply the frame
+        img_with_frame = add_complex_frame_to_image(img_cv)
+        # Convert the OpenCV image (numpy array) back to a PIL Image
+        img = Image.fromarray(cv2.cvtColor(img_with_frame, cv2.COLOR_BGR2RGB))
         return img
 
     def stylize_image(self, content_path, style_path):
