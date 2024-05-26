@@ -1,7 +1,10 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout
-from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtGui import QPixmap, QFont, QImage
 from PyQt5.QtCore import Qt
 from PIL import Image
+from component.frame_application import add_complex_frame_to_image
+import cv2
+import numpy as np
 
 class MyArtistResult(QMainWindow):
     def __init__(self, image_path):
@@ -22,6 +25,23 @@ class MyArtistResult(QMainWindow):
 
         # Get the original image's size
         original_image = Image.open(image_path)
+        
+        # Convert the PIL Image to a numpy array
+        numpy_image = np.array(original_image)
+
+        # Apply the complex frame to the image
+        framed_image = add_complex_frame_to_image(numpy_image)
+
+        # Convert the numpy array back to a PIL Image
+        framed_image = Image.fromarray(framed_image)
+
+        # Convert the PIL Image to a QImage
+        qim = QImage(framed_image.tobytes(), framed_image.width, framed_image.height, QImage.Format_RGB888)
+
+        # Create a QPixmap from the QImage
+        pixmap = QPixmap.fromImage(qim)
+
+        # Get the original image's size
         original_width, original_height = original_image.size
         content_ratio = original_height / original_width
         max_display_size = 400
