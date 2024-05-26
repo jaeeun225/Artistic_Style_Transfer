@@ -10,8 +10,7 @@ import threading
 import os
 import cv2
 from my_artist_result import MyArtistResult
-from frame_application import add_complex_frame_to_image
-
+from component.frame_application import add_complex_frame_to_image
 
 class ImageProcessor:
     def __init__(self, content_label, style_label, output_label):
@@ -34,14 +33,14 @@ class ImageProcessor:
         return filename
 
     def set_image_label(self, filename, image_label):
-        image = self.load_img(filename)
+        image = self.load_img_with_frame(filename)
         original_width, original_height = image.size
         content_ratio = original_height / original_width
         if original_width > original_height:
-            new_width = 300
+            new_width = 240
             new_height = int(new_width * content_ratio)
         else:
-            new_height = 200
+            new_height = 180
             new_width = int(new_height / content_ratio)
         image = image.resize((new_width, new_height))
         data = image.convert("RGBA").tobytes("raw", "BGRA")
@@ -51,6 +50,10 @@ class ImageProcessor:
 
     def load_img(self, path_to_img):
         img = Image.open(path_to_img)
+        return img
+
+    def load_img_with_frame(self, path_to_img):
+        img = self.load_img(path_to_img)
         # Convert the PIL Image to an OpenCV image (numpy array)
         img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         # Apply the frame
@@ -119,7 +122,6 @@ class ImageProcessor:
 
         self.result_page = MyArtistResult(output_image_path)
         self.result_page.show()
-
 class MyArtistPage(QMainWindow):
     def __init__(self, previous_page):
         super().__init__()
