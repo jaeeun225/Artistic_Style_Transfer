@@ -5,6 +5,7 @@ from PIL import Image
 from component.frame_application import add_complex_frame_to_image
 import cv2
 import numpy as np
+import os
 
 class MyArtistResult(QMainWindow):
     def __init__(self, image_path):
@@ -79,6 +80,7 @@ class MyArtistResult(QMainWindow):
         self.save_button = QPushButton('작품 소장하기')
         self.save_button.setFixedSize(400, 40)
         self.save_button.setFont(font)
+        self.save_button.clicked.connect(self.save_image) 
 
         layout.addLayout(self.centered_layout(self.name_button))
         layout.addItem(QSpacerItem(5, 5, QSizePolicy.Minimum, QSizePolicy.Fixed))
@@ -137,3 +139,19 @@ class MyArtistResult(QMainWindow):
             artwork_name = self.artwork_edit.text()
             self.name_button.setText("작품명 다시 붙이기")
             self.artwork_name_label.setText(f"{artist_name}의 {artwork_name}")
+
+    def save_image(self):
+        if not self.artwork_name_label.text():
+            return
+
+        current_dir = os.getcwd()
+        save_dir = os.path.join(current_dir, "Gallery Collection")
+
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+
+        artwork_name = self.artwork_name_label.text()
+        save_path = os.path.join(save_dir, f"{artwork_name}.jpg")
+
+        # Rename and move the file
+        os.rename(os.path.join(current_dir, "output.jpg"), save_path)
