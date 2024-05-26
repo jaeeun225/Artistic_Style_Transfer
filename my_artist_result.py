@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from PIL import Image
@@ -12,6 +12,8 @@ class MyArtistResult(QMainWindow):
 
         widget = QWidget()
         layout = QVBoxLayout()
+
+        layout.setSpacing(20)  # Set the spacing between widgets
 
         self.result_label = QLabel()
 
@@ -41,6 +43,80 @@ class MyArtistResult(QMainWindow):
 
         layout.addWidget(self.result_label)
 
+        # Add the artwork name label
+        self.artwork_name_label = QLabel()
+        self.artwork_name_label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.artwork_name_label)
+
+        # Add the artwork name button
+        self.name_button = QPushButton("작품명을 입력하세요")
+        self.name_button.clicked.connect(self.enter_image_name)
+        self.name_button.setFixedSize(400, 50)
+
+        # Center align the artwork name button
+        layout.addWidget(self.name_button, alignment=Qt.AlignCenter)
+
+        # Create a grid layout for the buttons
+        grid_layout = QGridLayout()
+
+        # Set the vertical spacing
+        grid_layout.setVerticalSpacing(10)
+
+        # Add the buttons
+        self.home_button = QPushButton("메인 메뉴")
+        self.home_button.setFixedSize(120, 50)  # Set the button size
+        self.back_button = QPushButton("뒤로 가기")
+        self.back_button.setFixedSize(120, 50)  # Set the button size
+        self.save_button = QPushButton("저장하기")
+        self.save_button.setFixedSize(120, 50)  # Set the button size
+        grid_layout.addWidget(self.home_button, 0, 0)
+        grid_layout.addWidget(self.back_button, 0, 1)
+        grid_layout.addWidget(self.save_button, 0, 2)
+
+        # Center align the buttons
+        grid_layout.setAlignment(self.home_button, Qt.AlignCenter)
+        grid_layout.setAlignment(self.back_button, Qt.AlignCenter)
+        grid_layout.setAlignment(self.save_button, Qt.AlignCenter)
+
+        # Add the grid layout to the main layout
+        layout.addLayout(grid_layout)
+
+        # Add a stretch at the end of the layout
+        layout.addStretch(40)
+
         widget.setLayout(layout)
         widget.setContentsMargins(30, 30, 30, 30)  # Set the border
         self.setCentralWidget(widget)
+
+    def enter_image_name(self):
+        # Create a custom dialog
+        dialog = QDialog(self)
+        dialog.setWindowTitle("작품명 입력")
+
+        # Create two line edits for the artist's name and the artwork's name
+        self.artist_edit = QLineEdit()
+        self.artwork_edit = QLineEdit()
+
+        # Create a form layout and add the line edits
+        form_layout = QFormLayout()
+        form_layout.addRow("작가:", self.artist_edit)
+        form_layout.addRow("작품명:", self.artwork_edit)
+
+        # Create a button box with OK and Cancel buttons
+        button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        button_box.accepted.connect(dialog.accept)
+        button_box.rejected.connect(dialog.reject)
+        form_layout.addRow(button_box)
+
+        # Set the dialog's layout
+        dialog.setLayout(form_layout)
+
+        # Show the dialog and wait for the user to click OK or Cancel
+        result = dialog.exec_()
+
+        # If the user clicked OK, update the button text and artwork name label
+        if result == QDialog.Accepted:
+            artist_name = self.artist_edit.text()
+            artwork_name = self.artwork_edit.text()
+            self.name_button.setText("작품명 다시 입력하기")
+            self.artwork_name_label.setText(f"{artist_name}의 {artwork_name}")
