@@ -27,8 +27,8 @@ class ImageProcessor:
         self.style_path = self.select_image(self.style_label)
 
     def select_image(self, image_label):
-        filename, _ = QFileDialog.getOpenFileName() 
-        if filename: 
+        filename, _ = QFileDialog.getOpenFileName(None, "Select Image File", "", "Images (*.png *.xpm *.jpg *.bmp *.gif);;All Files (*)")
+        if filename:
             self.set_image_label(filename, image_label)
         return filename
 
