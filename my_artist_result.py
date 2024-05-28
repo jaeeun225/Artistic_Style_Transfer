@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout, QHBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QPixmap, QFont, QImage
 from PyQt5.QtCore import Qt
-from PIL import Image
+from PIL import Image, ImageEnhance
 from component.frame_application import add_complex_frame_to_image
 import cv2
 import numpy as np
@@ -144,6 +144,7 @@ class MyArtistResult(QMainWindow):
         if not self.artwork_name_label.text():
             return
 
+        # Save the image with the artwork name
         current_dir = os.getcwd()
         save_dir = os.path.join(current_dir, "Gallery Collection")
 
@@ -155,3 +156,19 @@ class MyArtistResult(QMainWindow):
 
         # Rename and move the file
         os.rename(os.path.join(current_dir, "output.jpg"), save_path)
+
+        # Convert the saved image to a bitmap icon
+        img = Image.open(save_path)
+
+        img = img.convert('RGB')
+
+        # enhance the contrast of the image by 2.0
+        enhancer = ImageEnhance.Contrast(img)
+        img = enhancer.enhance(2.0) 
+
+        # Resize the image 32X32 to use as an icon
+        img = img.resize((32, 32))
+
+        # save the icon file
+        icon_save_path = os.path.join(save_dir, f"{artwork_name}.ico")
+        img.save(icon_save_path, format='ICO')
