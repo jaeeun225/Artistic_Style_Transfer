@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLa
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from artist_select import ArtistSelect
+from gallery import GalleryPage
 
 class MainPage(QMainWindow):
     def __init__(self):
@@ -29,6 +30,7 @@ class MainPage(QMainWindow):
         gallery_button = QPushButton('갤러리')
         gallery_button.setFixedSize(400, 80)
         gallery_button.setFont(font)
+        gallery_button.clicked.connect(self.open_gallery_page)
 
         exit_button = QPushButton('나가기')
         exit_button.setFixedSize(400, 80)
@@ -52,6 +54,11 @@ class MainPage(QMainWindow):
         self.hide()  # Hide the main page
         self.next_page = ArtistSelect(self)  # Create the next page with a reference to the main page
         self.next_page.show()  # Show the next page
+
+    def open_gallery_page(self):
+        self.hide()
+        self.gallery_page = GalleryPage(self)
+        self.gallery_page.show()
 
 app = QApplication([])
 window = MainPage()
