@@ -19,8 +19,8 @@ class GalleryPage(QMainWindow):
 
         set_background(self, r"resource\wall.jpg")
 
-        title = QLabel("갤러리")
-        title_font = QFont("NanumMyeongjo", 20, QFont.Bold)
+        title = QLabel("감상할 작품을 선택해주세요")
+        title_font = QFont("NanumMyeongjo", 13)
         title.setFont(title_font)
         title.setAlignment(Qt.AlignCenter)
 
