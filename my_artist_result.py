@@ -166,9 +166,13 @@ class MyArtistResult(QMainWindow):
         enhancer = ImageEnhance.Contrast(img)
         img = enhancer.enhance(2.0) 
 
-        # Resize the image 32X32 to use as an icon
-        img = img.resize((32, 32))
+        # Resize the image to use as an icon
+        img = img.resize((96, 96))
 
         # save the icon file
-        icon_save_path = os.path.join(save_dir, f"{artwork_name}.ico")
+        save_dir2 = os.path.join(current_dir, "Gallery Collection/ico")
+        if not os.path.exists(save_dir2):
+            os.makedirs(save_dir2)
+
+        icon_save_path = os.path.join(save_dir2, f"{artwork_name}.ico")
         img.save(icon_save_path, format='ICO')
