@@ -25,7 +25,7 @@ class ArtworkPage(QMainWindow):
         set_background(self, r"resource\wall.jpg")
 
         # split artist name and title
-        artist_name, artwork_title = artwork_name.split('의')
+        artist_name, artwork_title = artwork_name.split('의', 1)
 
         title_font = QFont("NanumMyeongjo", 20, QFont.Bold)
         font = QFont("NanumMyeongjo", 10)
