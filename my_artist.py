@@ -11,6 +11,7 @@ import os
 import cv2
 from my_artist_result import MyArtistResult
 from component.frame_application import add_complex_frame_to_image
+from component.background_setting import set_background
 
 class ImageProcessor:
     def __init__(self, content_label, style_label, output_label):
@@ -133,6 +134,8 @@ class MyArtistPage(QMainWindow):
 
         widget = QWidget()
         layout = QVBoxLayout()
+
+        set_background(self, r"resource\wall.jpg")
 
         self.content_label = QLabel()
         self.style_label = QLabel()

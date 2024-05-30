@@ -3,6 +3,7 @@ from PyQt5.QtGui import QPixmap, QFont, QImage
 from PyQt5.QtCore import Qt
 from PIL import Image, ImageEnhance
 from component.frame_application import add_complex_frame_to_image
+from component.background_setting import set_background
 import cv2
 import numpy as np
 import os
@@ -16,6 +17,8 @@ class MyArtistResult(QMainWindow):
 
         widget = QWidget()
         layout = QVBoxLayout()
+
+        set_background(self, r"resource\wall.jpg")
 
         layout.setSpacing(20)  # Set the spacing between widgets
 

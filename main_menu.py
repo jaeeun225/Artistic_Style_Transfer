@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLabel, QMainWindow, QGridLayout
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QPixmap, QPalette, QBrush
 from PyQt5.QtCore import Qt
 from artist_select import ArtistSelect
 from gallery import GalleryPage
-
+from component.background_setting import set_background
 class MainPage(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -13,6 +13,8 @@ class MainPage(QMainWindow):
 
         widget = QWidget()
         layout = QVBoxLayout()
+
+        set_background(self, r"resource\wall.jpg")
 
         title = QLabel("나의 작은 아트 갤러리")
         title_font = QFont("NanumMyeongjo", 20, QFont.Bold)

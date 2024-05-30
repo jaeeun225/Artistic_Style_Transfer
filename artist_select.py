@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLa
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from my_artist import MyArtistPage
+from component.background_setting import set_background
 class ArtistSelect(QMainWindow):
     def __init__(self, main_page):
         super().__init__()
@@ -13,6 +14,8 @@ class ArtistSelect(QMainWindow):
 
         widget = QWidget()
         layout = QVBoxLayout()
+
+        set_background(self, r"resource\wall.jpg")
 
         title = QLabel("작품을 만들 화가를 선택해주세요")
         title_font = QFont("NanumMyeongjo", 13)

@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt, QSize
 import os
 from artist_select import ArtistSelect
 from artwork import ArtworkPage
+from component.background_setting import set_background
 
 class GalleryPage(QMainWindow):
     def __init__(self, main_page):
@@ -15,6 +16,8 @@ class GalleryPage(QMainWindow):
 
         widget = QWidget()
         layout = QVBoxLayout()
+
+        set_background(self, r"resource\wall.jpg")
 
         title = QLabel("갤러리")
         title_font = QFont("NanumMyeongjo", 20, QFont.Bold)

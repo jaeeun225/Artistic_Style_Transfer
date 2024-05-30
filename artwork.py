@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt
 from PIL import Image
 import numpy as np
 from component.frame_application import add_complex_frame_to_image
+from component.background_setting import set_background
 
 class ArtworkPage(QMainWindow):
     def __init__(self, artwork_name):
@@ -20,6 +21,8 @@ class ArtworkPage(QMainWindow):
         widget = QWidget()
         layout = QVBoxLayout()
         layout.setSpacing(25)
+
+        set_background(self, r"resource\wall.jpg")
 
         # split artist name and title
         artist_name, artwork_title = artwork_name.split('의')
