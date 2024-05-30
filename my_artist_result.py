@@ -112,7 +112,7 @@ class MyArtistResult(QMainWindow):
         self.artwork_edit = QLineEdit()
         self.artwork_edit.setFont(font)
 
-        artist_label = QLabel("작가:")
+        artist_label = QLabel("아티스트:")
         artist_label.setFont(font)
         artwork_label = QLabel("작품명:")
         artwork_label.setFont(font)
