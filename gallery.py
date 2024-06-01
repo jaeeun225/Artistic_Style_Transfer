@@ -38,7 +38,8 @@ class GalleryPage(QMainWindow):
         scroll = QScrollArea()  # Create a scroll area
         scroll.setWidgetResizable(True)
         scroll_content = QWidget()
-        scroll_layout = QVBoxLayout(scroll_content)  # Use QVBoxLayout
+        scroll_layout = QGridLayout(scroll_content)  # Use QGridLayout
+        scroll_layout.setVerticalSpacing(20)
 
         for i, artwork in enumerate(artworks):
             button = QPushButton()
@@ -48,7 +49,9 @@ class GalleryPage(QMainWindow):
             button.setIconSize(QSize(96, 96)) 
             button.setFixedSize(110, 110) 
             button.clicked.connect(lambda checked, artwork=artwork: self.open_artwork_page(artwork))
-            scroll_layout.addWidget(button)  # Add each button to a new row
+            row = i // 3  # Calculate row index
+            col = i % 3  # Calculate column index
+            scroll_layout.addWidget(button, row, col)  # Add each button to the grid
 
         scroll_content.setLayout(scroll_layout)
         scroll.setWidget(scroll_content)
