@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QMainWindow, QGridLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
 from PyQt5.QtGui import QFont, QPixmap, QImage
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PIL import Image
 import tensorflow_hub as hub
 import tensorflow as tf
@@ -13,6 +13,16 @@ from my_artist_result import MyArtistResult
 from component.frame_application import add_complex_frame_to_image
 from component.background_setting import set_background
 
+class StylizeThread(QThread):
+    finished = pyqtSignal(str)
+
+    def __init__(self, image_processor):
+        super().__init__()
+        self.image_processor = image_processor
+
+    def run(self):
+        output_image_path = self.image_processor.stylize()
+        self.finished.emit(output_image_path)
 class ImageProcessor:
     def __init__(self, content_label, style_label, output_label):
         self.content_path = ""
@@ -117,10 +127,12 @@ class ImageProcessor:
         self.output_label.setPixmap(pixmap)
 
         return output_image_path
-
     def stylize_button_click(self):
-        output_image_path = self.stylize()
+        self.stylize_thread = StylizeThread(self)
+        self.stylize_thread.finished.connect(self.on_stylize_finished)
+        self.stylize_thread.start()
 
+    def on_stylize_finished(self, output_image_path):
         self.result_page = MyArtistResult(output_image_path)
         self.result_page.show()
 class MyArtistPage(QMainWindow):
@@ -140,7 +152,7 @@ class MyArtistPage(QMainWindow):
         self.content_label = QLabel()
         self.style_label = QLabel()
         self.output_label = QLabel()
-
+        
         self.image_processor = ImageProcessor(self.content_label, self.style_label, self.output_label)
 
         font = QFont("NanumMyeongjo", 10)
