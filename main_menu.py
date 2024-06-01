@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLabel, QMainWindow, QGridLayout
 from PyQt5.QtGui import QFont, QPixmap, QPalette, QBrush
 from PyQt5.QtCore import Qt
-from artist_select import ArtistSelect
+# from artist_select import ArtistSelect
+from my_artist import MyArtistPage
 from gallery import GalleryPage
 from component.background_setting import set_background
 class MainPage(QMainWindow):
@@ -53,10 +54,13 @@ class MainPage(QMainWindow):
         self.setCentralWidget(widget)
 
     def open_next_page(self):
-        self.hide()  # Hide the main page
-        self.next_page = ArtistSelect(self)  # Create the next page with a reference to the main page
-        self.next_page.show()  # Show the next page
+        self.hide() 
+        # self.next_page = ArtistSelect(self)
+        # self.next_page.show()
 
+        self.my_artist_page = MyArtistPage(self)
+        self.my_artist_page.show()
+        
     def open_gallery_page(self):
         self.hide()
         self.gallery_page = GalleryPage(self)
