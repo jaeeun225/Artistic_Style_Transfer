@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLabel, QMainWindow, QGridLayout, QScrollArea, QFrame
 from PyQt5.QtGui import QFont, QPixmap, QIcon
 from PyQt5.QtCore import Qt, QSize
+from functools import partial
 import os
 from artist_select import ArtistSelect
 from artwork import ArtworkPage
@@ -48,10 +49,10 @@ class GalleryPage(QMainWindow):
             button.setIcon(QIcon(scaled_icon))
             button.setIconSize(QSize(96, 96)) 
             button.setFixedSize(110, 110) 
-            button.clicked.connect(lambda checked, artwork=artwork: self.open_artwork_page(artwork))
+            button.clicked.connect(partial(self.open_artwork_page, artwork))
             row = i // 3  # Calculate row index
             col = i % 3  # Calculate column index
-            scroll_layout.addWidget(button, row, col)  # Add each button to the grid
+            scroll_layout.addWidget(button, row, col)
 
         scroll_content.setLayout(scroll_layout)
         scroll.setWidget(scroll_content)

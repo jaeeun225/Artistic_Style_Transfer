@@ -5,6 +5,7 @@ from PyQt5.QtGui import QFont, QPixmap, QImage
 from PyQt5.QtCore import Qt
 from PIL import Image
 import numpy as np
+import re
 from component.frame_application import add_complex_frame_to_image
 from component.background_setting import set_background
 
@@ -31,7 +32,9 @@ class ArtworkPage(QMainWindow):
         font = QFont("NanumMyeongjo", 10)
 
         # title label
-        self.artwork_title_label = QLabel(artwork_title.strip())
+        # delete (2), (3), etc. from the title
+        artwork_title = re.sub(r'\s\(\d+\)$', '', artwork_title.strip())
+        self.artwork_title_label = QLabel(artwork_title)
         self.artwork_title_label.setFont(title_font)
         self.artwork_title_label.setAlignment(Qt.AlignCenter)
 
@@ -82,6 +85,16 @@ class ArtworkPage(QMainWindow):
         layout.addWidget(self.artwork_title_label)
         layout.addWidget(self.artist_label)
         layout.addWidget(self.year_label)
+
+        # Check if the artwork title contains a number in parentheses at the end
+        series_match = re.search(r'\s\(\d+\)$', artwork_name)
+        if series_match:
+            # If it does, create a label with the series information
+            artwork_name2 = re.sub(r'\s\(\d+\)$', '', artwork_name.strip())
+            series_info = f"작품정보: {artwork_name2} 연작입니다."
+            self.series_label = QLabel(series_info)
+            self.series_label.setFont(font)
+            layout.addWidget(self.series_label)
 
         layout.addStretch(20)
 

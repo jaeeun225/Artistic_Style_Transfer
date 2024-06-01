@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout, QHBoxLayout, QSpacerItem, QSizePolicy
+from PyQt5.QtWidgets import (QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton, 
+                             QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QGridLayout, 
+                             QHBoxLayout, QSpacerItem, QSizePolicy, QMessageBox)
 from PyQt5.QtGui import QPixmap, QFont, QImage
 from PyQt5.QtCore import Qt
 from PIL import Image, ImageEnhance
@@ -143,8 +145,14 @@ class MyArtistResult(QMainWindow):
             self.name_button.setText("작품명 다시 붙이기")
             self.artwork_name_label.setText(f"{artist_name}의 {artwork_name}")
 
-    def save_image(self):
+    def save_image(self):        
         if not self.artwork_name_label.text():
+            msg = QMessageBox()
+            msg.setFont(QFont("NanumMyeongjo", 10))
+            msg.setWindowTitle("Alert")
+            msg.setText("작품명을 붙여주세요.")
+            msg.setIcon(QMessageBox.Information)
+            msg.exec_()
             return
 
         # Save the image with the artwork name
@@ -156,6 +164,33 @@ class MyArtistResult(QMainWindow):
 
         artwork_name = self.artwork_name_label.text()
         save_path = os.path.join(save_dir, f"{artwork_name}.jpg")
+
+        # Check if file already exists
+        if os.path.exists(save_path):
+            msg = QMessageBox()
+            msg.setFont(QFont("NanumMyeongjo", 10))
+            msg.setWindowTitle("작품명 동일")
+            msg.setText(f"'{artwork_name}'(이)가 이미 존재합니다.\n연작을 만드시겠습니까?")
+            msg.setIcon(QMessageBox.Information)
+            msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            result = msg.exec_()
+
+            if result == QMessageBox.No:
+                msg = QMessageBox()
+                msg.setFont(QFont("NanumMyeongjo", 10))
+                msg.setWindowTitle("작품명 동일")
+                msg.setText("작품의 소장을 원하신다면\n다른 작품명을 붙여주세요.")
+                msg.setIcon(QMessageBox.Information)
+                msg.exec_()
+                return
+            
+            else:
+                # Create a new artwork name with a number suffix
+                suffix = 1
+                while os.path.exists(save_path):
+                    suffix += 1
+                    new_artwork_name = f"{artwork_name} ({suffix})"
+                    save_path = os.path.join(save_dir, f"{new_artwork_name}.jpg")
 
         # Rename and move the file
         os.rename(os.path.join(current_dir, "output.jpg"), save_path)
@@ -178,4 +213,13 @@ class MyArtistResult(QMainWindow):
             os.makedirs(save_dir2)
 
         icon_save_path = os.path.join(save_dir2, f"{artwork_name}.ico")
+
+        # Check if file already exists
+        suffix = 1
+        while os.path.exists(icon_save_path):
+            suffix += 1
+            new_artwork_name = f"{artwork_name} ({suffix})"
+            icon_save_path = os.path.join(save_dir2, f"{new_artwork_name}.ico")
+            
+
         img.save(icon_save_path, format='ICO')
