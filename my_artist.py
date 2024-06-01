@@ -1,5 +1,7 @@
-from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QMainWindow, QGridLayout, QSpacerItem, QSizePolicy, QLabel, QFileDialog
-from PyQt5.QtGui import QFont, QPixmap, QImage
+from PyQt5.QtWidgets import (QApplication, QPushButton, QVBoxLayout, QHBoxLayout,
+                            QWidget, QMainWindow, QGridLayout, QSpacerItem,
+                            QSizePolicy, QLabel, QFileDialog, QMessageBox)
+from PyQt5.QtGui import QFont, QPixmap, QImage, QMovie
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PIL import Image
 import tensorflow_hub as hub
@@ -60,8 +62,8 @@ class ImageProcessor:
         image_label.setPixmap(pixmap)
 
     def load_img(self, path_to_img):
-        img = Image.open(path_to_img)
-        return img
+        with Image.open(path_to_img) as img:
+            return img.copy()
 
     def load_img_with_frame(self, path_to_img):
         img = self.load_img(path_to_img)
@@ -129,6 +131,7 @@ class ImageProcessor:
         self.output_label.setPixmap(pixmap)
 
         return output_image_path
+        
     def stylize_button_click(self):
         self.stylize_thread = StylizeThread(self)
         self.stylize_thread.finished.connect(self.on_stylize_finished)
@@ -137,6 +140,7 @@ class ImageProcessor:
     def on_stylize_finished(self, output_image_path):
         self.result_page = MyArtistResult(output_image_path)
         self.result_page.show()
+
 class MyArtistPage(QMainWindow):
     def __init__(self, previous_page):
         super().__init__()
