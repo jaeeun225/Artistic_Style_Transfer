@@ -35,11 +35,10 @@ class GalleryPage(QMainWindow):
         gallery_collection_ico_dir = os.path.join(current_dir, "Gallery Collection/ico")
         artworks = os.listdir(gallery_collection_ico_dir)
 
-        scroll = QScrollArea()
+        scroll = QScrollArea()  # Create a scroll area
         scroll.setWidgetResizable(True)
-        scroll_content = QWidget(scroll)
-        scroll_layout = QGridLayout(scroll_content)
-        scroll.setWidget(scroll_content)
+        scroll_content = QWidget()
+        scroll_layout = QVBoxLayout(scroll_content)  # Use QVBoxLayout
 
         for i, artwork in enumerate(artworks):
             button = QPushButton()
@@ -49,10 +48,13 @@ class GalleryPage(QMainWindow):
             button.setIconSize(QSize(96, 96)) 
             button.setFixedSize(110, 110) 
             button.clicked.connect(lambda checked, artwork=artwork: self.open_artwork_page(artwork))
-            scroll_layout.addWidget(button, i // 2, i % 2)
+            scroll_layout.addWidget(button)  # Add each button to a new row
+
+        scroll_content.setLayout(scroll_layout)
+        scroll.setWidget(scroll_content)
 
         layout.addWidget(title)
-        layout.addWidget(scroll)
+        layout.addWidget(scroll)  # Add the scroll area to the layout
         layout.addWidget(back_button)
 
         widget.setLayout(layout)
