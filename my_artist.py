@@ -136,6 +136,30 @@ class ImageProcessor:
         self.stylize_thread = StylizeThread(self)
         self.stylize_thread.finished.connect(self.on_stylize_finished)
         self.stylize_thread.start()
+        
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.NoIcon)
+        msg.setWindowTitle("작품 만들기")
+        msg.setStandardButtons(QMessageBox.Ok)
+        font = QFont("NanumMyeongjo", 10)
+        msg.setFont(font)
+
+        movie = QMovie("resource/drawing.gif")
+        movie_label = QLabel()
+        movie_label.setMovie(movie)
+        movie_label.setScaledContents(True)  # Enable scaling
+        movie_label.setFixedSize(64, 64) 
+        movie.start()
+
+        text_label = QLabel("화가가 작품을 만들고 있습니다.\n잠시만 기다려주세요.")
+        text_label.setFont(font)
+
+        layout = msg.layout()
+        layout.addWidget(movie_label, 0, 0, Qt.AlignCenter)
+        layout.addWidget(text_label, 0, 1, Qt.AlignCenter)
+        msg.setLayout(layout)
+            
+        msg.exec_()
 
     def on_stylize_finished(self, output_image_path):
         self.result_page = MyArtistResult(output_image_path)
