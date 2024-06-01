@@ -103,6 +103,8 @@ class ImageProcessor:
 
         # Save the stylized image and return its path
         output_image_path = "output.jpg"
+        if os.path.exists(output_image_path):
+            os.remove(output_image_path)
         stylized_image.save(output_image_path)
 
         # Get the original image's size
@@ -158,22 +160,22 @@ class MyArtistPage(QMainWindow):
         font = QFont("NanumMyeongjo", 10)
 
         content_button = QPushButton('화가가 그릴 이미지 가져오기')
-        content_button.setFixedSize(400, 40)
+        content_button.setFixedSize(360, 40)
         content_button.setFont(font)
         content_button.clicked.connect(self.image_processor.update_content_path)
 
         style_button = QPushButton('화가의 이전 작품 가져오기')
-        style_button.setFixedSize(400, 40)
+        style_button.setFixedSize(360, 40)
         style_button.setFont(font)
         style_button.clicked.connect(self.image_processor.update_style_path)
 
         stylize_button = QPushButton('작품 만들기')
-        stylize_button.setFixedSize(400, 40)
+        stylize_button.setFixedSize(360, 40)
         stylize_button.setFont(font)
         stylize_button.clicked.connect(self.image_processor.stylize_button_click)
 
         back_button = QPushButton('뒤로 가기')
-        back_button.setFixedSize(400, 40)
+        back_button.setFixedSize(360, 40)
         back_button.setFont(font)
         back_button.clicked.connect(self.go_back)
 
