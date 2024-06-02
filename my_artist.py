@@ -33,17 +33,17 @@ class ImageProcessor:
         self.style_label = style_label
         self.output_label = output_label
     
-    def update_content_path(self):
-        self.content_path = self.select_image(self.content_label)
-
-    def update_style_path(self):
-        self.style_path = self.select_image(self.style_label)
-
-    def select_image(self, image_label):
-        filename, _ = QFileDialog.getOpenFileName(None, "Select Image File", "", "Images (*.png *.xpm *.jpg *.bmp *.gif);;All Files (*)")
+    def select_image(self, image_label, directory):
+        filename, _ = QFileDialog.getOpenFileName(None, "Select Image File", directory, "Images (*.png *.xpm *.jpg *.bmp *.gif);;All Files (*)")
         if filename:
             self.set_image_label(filename, image_label)
         return filename
+
+    def update_content_path(self):
+        self.content_path = self.select_image(self.content_label, "content_images/")
+
+    def update_style_path(self):
+        self.style_path = self.select_image(self.style_label, "style_images/")
 
     def set_image_label(self, filename, image_label):
         image = self.load_img_with_frame(filename)
