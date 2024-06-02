@@ -16,24 +16,21 @@
 
 ## 📍사용 방법
 
----
-
 ### 0. **기본 세팅**
 
 1. 아래의 링크로 이 저장소를 클론해주세요.
 
-<aside>
-💡 https://github.com/jaeeun225/Artistic_Style_Transfer.git
+   <aside>
+   https://github.com/jaeeun225/Artistic_Style_Transfer.git
+   </aside>
 
-</aside>
+2. 아래의 명령어로 필요한 라이브러리를 설치해주세요.
 
-1. 아래의 명령어로 필요한 라이브러리를 설치해주세요.
+   ```bash
+   pip install pyqt5 pillow opencv-python
+   ```
 
-```bash
-pip install pyqt5 pillow opencv-python
-```
-
-1. `main_menu.py` 를 실행하여 프로그램을 작동해주세요.
+3. `main_menu.py` 를 실행하여 프로그램을 작동해주세요.
 
 - 변환을 원하는 이미지가 있으시다면 프로젝트의 **`content_images`** 디렉토리에 추가해주세요.
 - 원하는 스타일의 작품 이미지가 있으시다면 프로젝트의 **`style_images`** 디렉토리에 추가해주세요.
@@ -44,25 +41,24 @@ pip install pyqt5 pillow opencv-python
 
 <img src="run_example/main_menu.JPG" alt="메인 화면" width="250">
 
-- 새로운 작품을 갤러리 컬렉션에 추가하고 싶다면 `작품 만들기` 버튼을 선택해주세요.
-- 소장 중인 작품을 감상하고 싶다면 `갤러리` 버튼을 선택해주세요.
-- 오늘 갤러리의 운영을 마치고 싶으시다면 `나가기` 버튼을 선택해주세요.
+- 새로운 작품을 갤러리 컬렉션에 추가하고 싶다면 **`작품 만들기`** 버튼을 선택해주세요.
+- 소장 중인 작품을 감상하고 싶다면 **`갤러리`** 버튼을 선택해주세요.
+- 오늘 갤러리의 운영을 마치고 싶으시다면 **`나가기`** 버튼을 선택해주세요.
 
 ---
 
 ### 2. **작품 만들기 페이지**
 
 <img src="run_example/my_artist(1).JPG" alt="작품 만들기 페이지" width="250">
-
 <img src="run_example/my_artist(2).JPG" alt="원하는 이미지 선택 후" width="250">
 
-- `화가가 그릴 이미지 가져오기` 버튼을 통해 변환을 원하는 이미지를 가져와주세요.
-- `화가의 이전 작품 가져오기` 버튼을 통해 원하는 스타일의 작품을 선택해주세요.
+- **`화가가 그릴 이미지 가져오기`** 버튼을 통해 변환을 원하는 이미지를 가져와주세요.
+- **`화가의 이전 작품 가져오기`** 버튼을 통해 원하는 스타일의 작품을 선택해주세요.  
   선택된 작품의 화풍에 따라 만들어지는 작품의 스타일이 달라집니다.
 
 <img src="run_example/my_artist(3).JPG" alt="작품 만들기 선택 후" width="250">
 
-- 이미지를 모두 선택했다면 `작품 만들기` 버튼을 통해 화가에게 작품을 의뢰해주세요.
+- 이미지를 모두 선택했다면 **`작품 만들기`** 버튼을 통해 화가에게 작품을 의뢰해주세요.
 - 화가가 작품을 완성할 때까지 잠시 기다려주세요.
 
 ---
@@ -70,21 +66,19 @@ pip install pyqt5 pillow opencv-python
 ### 3. **작품 만들기 결과 페이지**
 
 <img src="run_example/my_artist_result(1).JPG" alt="작품 만들기 결과 페이지" width="250">
-
 <img src="run_example/my_artist_result(2).JPG" alt="작품명 설정" width="250">
-
 <img src="run_example/my_artist_result(5).JPG" alt="작품명 설정" width="250">
 
-- `작품명을 붙여주세요` 버튼을 통해 작품에 고유한 이름을 부여해주세요.
-- `작품명 다시 붙이기` 버튼을 통해 이름을 변경할 수 있습니다.
+- **`작품명을 붙여주세요`** 버튼을 통해 작품에 고유한 이름을 부여해주세요.
+- **`작품명 다시 붙이기`** 버튼을 통해 이름을 변경할 수 있습니다.
 
 <img src="run_example/my_artist_result(3).JPG" alt="작품 소장" width="250">
-
 <img src="run_example/my_artist_result(4).JPG" alt="작품 소장" width="250">
 
-- `작품 소장` 버튼을 통해 새로운 작품을 갤러리 컬렉션에 추가할 수 있습니다.
-- 이미 같은 작품명을 가진 작품이 있다면 연작을 만들 수 있습니다.
+- **`작품 소장`** 버튼을 통해 새로운 작품을 갤러리 컬렉션에 추가할 수 있습니다.
+- 이미 같은 작품명을 가진 작품이 있다면 연작을 만들 수 있습니다.  
   연작을 원치 않으시다면 다른 작품명을 붙여주세요.
+
   **한번 소장한 작품의 이름은 다시 변경할 수 없으니 주의해주세요!**
 
 ---
@@ -94,7 +88,7 @@ pip install pyqt5 pillow opencv-python
 <img src="run_example/gallery.JPG" alt="갤러리 컬렉션" width="250">
 
 - 갤러리 페이지에는 소장한 작품이 비트맵 아이콘으로 나타납니다.
-- 감상을 원하는 작품의 `비트맵 아이콘`을 선택하면 전시된 작품을 감상할 수 있습니다.
+- 감상을 원하는 작품의 **`비트맵 아이콘`**을 선택하면 전시된 작품을 감상할 수 있습니다.
 
 ---
 
