@@ -129,6 +129,6 @@
 
 - [텐서플로우](https://www.tensorflow.org/): 머신러닝을 위한 종단간 오픈소스 플랫폼입니다.
 - [텐서플로우 허브](https://tfhub.dev/): 미세 조정 및 어디에서나 배포 가능한 훈련된 머신러닝 모델의 저장소입니다.
-- [애니메이션 아이콘](https://www.flaticon.com/kr/free-animated-icons/): Freepik이 제작한 Flaticon의 아이콘.
+- [애니메이션 아이콘](https://www.flaticon.com/kr/animated-icons/): Freepik이 제작한 Flaticon의 아이콘.
 
 본 프로젝트에서는 텐서플로우 허브에서 제공하는 구글의 'magenta/arbitrary-image-stylization-v1-256' 모델을 사용하였습니다. 해당 모델은 [여기](https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2)에서 확인하실 수 있습니다.
