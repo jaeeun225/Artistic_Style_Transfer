@@ -87,7 +87,9 @@ class ImageProcessor:
         # Resize the style image to 256x256.
         style_image = tf.image.resize(style_image, (256, 256))
 
-        # Load the model.
+        # Load the model from TensorFlow Hub
+        # Model 'magenta/arbitrary-image-stylization-v1-256' by Google
+        # Available at: https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2
         hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
 
         # Stylize the image.
