@@ -6,38 +6,38 @@
 
 1. **메인 화면 (MainPage)**
 
-   ![메인 화면](run_example/main_menu.JPG)
+   <img src="run_example/main_menu.JPG" alt="메인 화면" width="500">
 
    - 작품 만들기, 갤러리, 그리고 나가기 버튼 제공
 
 2. **작품 만들기 페이지 (MyArtistPage)**
 
-   ![작품 만들기 페이지](<run_example/my_artist(1).JPG>)
-   ![원하는 이미지 선택 후](<run_example/my_artist(2).JPG>)
-   ![작품 만들기 선택 후](<run_example/my_artist(3).JPG>)
+   <img src="run_example/my_artist(1).JPG" alt="작품 만들기 페이지" width="500">
+   <img src="run_example/my_artist(2).JPG" alt="원하는 이미지 선택 후" width="500">
+   <img src="run_example/my_artist(3).JPG" alt="작품 만들기 선택 후" width="500">
 
    - **작품 스타일 적용**: 사용자는 원하는 화가의 작품 이미지를 선택하여 해당 작품의 화풍을 선택한 이미지에 적용할 수 있습니다. 이를 통해 사용자는 평범한 사진에 원하는 화풍이 적용된 특별한 예술 작품을 얻을 수 있습니다
 
 3. **작품 만들기 결과 페이지 (MyArtistResult)**
 
-   ![작품 만들기 결과 페이지](<run_example/my_artist_result(1).JPG>)
-   ![작품명 설정](<run_example/my_artist_result(2).JPG>)
+   <img src="run_example/my_artist_result(1).JPG" alt="작품 만들기 결과 페이지" width="500">
+   <img src="run_example/my_artist_result(2).JPG" alt="작품명 설정" width="500">
 
    - **작품명 설정**: 새롭게 그려진 작품에 사용자가 원하는 고유한 작품명을 붙일 수 있습니다.
 
-   ![작품 소장](<run_example/my_artist_result(3).JPG>)
-   ![작품 소장](<run_example/my_artist_result(4).JPG>)
+   <img src="run_example/my_artist_result(3).JPG" alt="작품 소장" width="500">
+   <img src="run_example/my_artist_result(4).JPG" alt="작품 소장" width="500">
 
    - **작품 소장**: 각 작품에 붙여진 작품명을 사용하여 작품을 소장할 수 있습니다. 소장한 작품은 갤러리의 컬렉션에 추가되어 사용자는 자신의 예술 컬렉션을 관리하고 감상할 수 있습니다. 만약 동일한 이름의 작품이 존재할 시, 사용자는 같은 이름의 작품들을 연작으로 만들어 소장할 수 있습니다. 연작을 원하지 않는다면 다른 작품명을 붙여 작품을 소장할 수 있습니다.
 
 4. **갤러리 페이지 (GalleryPage)**
 
-   ![갤러리 컬렉션](run_example/gallery.JPG)
+   <img src="run_example/gallery.JPG" alt="갤러리 컬렉션" width="500">
 
    - **갤러리 컬렉션**: 갤러리 페이지를 통해 사용자는 소장한 작품을 감상할 수 있습니다. 소장한 작품은 비트맵 이미지로 변환되어 갤러리 페이지에 아이콘으로 나타납니다. 비트맵 아이콘을 클릭하면 해당 작품에 대한 자세한 정보가 표시됩니다.
 
 5. **작품 전시 페이지 (ArtworkPage)**
 
-   ![작품 전시 페이지](run_example/artwork.JPG)
+   <img src="run_example/artwork.JPG" alt="작품 전시 페이지" width="500">
 
    - **작품 감상**: 선택한 아이콘에 해당하는 작품의 자세한 정보와 함께 작품을 감상할 수 있습니다. 이 페이지에서는 전시된 작품을 보여주고 작품명, 아티스트명, 제작연도를 표시합니다. 같은 작품명을 가진 연작들은 연작 정보 또한 표시됩니다.
