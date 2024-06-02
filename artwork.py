@@ -96,6 +96,18 @@ class ArtworkPage(QMainWindow):
             self.series_label.setFont(font)
             layout.addWidget(self.series_label)
 
+        else:
+            # If it doesn't, add parentheses and a number to the artwork name
+            artwork_name2 = artwork_name.strip() + " (2)"
+            # Check if a file with this name exists in the directory
+            if os.path.isfile(os.path.join("Gallery Collection", artwork_name2 + '.jpg')):
+                artwork_name2 = re.sub(r'\s\(\d+\)$', '', artwork_name.strip())
+                # If it does, create a label with the series information
+                series_info = f"작품정보: {artwork_name2} 연작입니다."
+                self.series_label = QLabel(series_info)
+                self.series_label.setFont(font)
+                layout.addWidget(self.series_label)
+
         layout.addStretch(20)
 
         widget.setLayout(layout)
